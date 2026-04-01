@@ -99,6 +99,18 @@ app.post("/author/edit", async function(req, res){
   res.redirect("/authors");
 });
 
+// Deletes author
+app.get("/author/delete", async function(req, res) {
+    let authorId = req.query.authorId;
+
+    let sql = `DELETE
+               FROM q_authors
+               WHERE authorId = ?`;
+
+    const [rows] = await pool.query(sql, [authorId]);
+
+    res.redirect("/authors");
+});
 
 app.get("/dbTest", async(req, res) => {
    try {
