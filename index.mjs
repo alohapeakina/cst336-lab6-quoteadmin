@@ -52,6 +52,7 @@ app.post("/author/new", async function(req, res){
              {"message": "Author added!"});
 });
 
+// Retrieve list of authors
 app.get("/authors", async function(req, res){
  let sql = `SELECT *
             FROM q_authors
@@ -120,6 +121,15 @@ app.get("/dbTest", async(req, res) => {
         console.error("Database error:", err);
         res.status(500).send("Database error");
     }
+});
+
+// Retrieve list of quotes
+app.get("/quotes", async function(req, res){
+ let sql = `SELECT *
+            FROM q_quotes
+            ORDER BY quoteId`;
+ const [rows] = await pool.query(sql);
+ res.render("quoteList", {"quotes":rows});
 });
 
 app.listen(3000, ()=>{
