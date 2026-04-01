@@ -47,18 +47,33 @@ app.post("/author/new", async function(req, res){
              (firstName, lastName, dob, dod, sex, profession, country, portrait, biography)
               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
   let params = [fName, lName, birthDate, deathDate, sex, profession, birthPlace, portraitUrl, biography];
-  const [rows] = await pool.query(sql, params);
-  res.render("newAuthor", 
-             {"message": "Author added!"});
+
+  try {
+      const [rows] = await pool.query(sql, params);
+      res.render("newAuthor", 
+                 {"message": "Author added!"});
+  } catch (err) {
+        console.error("Database error:", err.message);
+        console.error("SQL:", sql);
+        console.error("Params:",params);
+        res.status(500).send("Database error");
+    }
 });
 
 // Retrieve list of authors
 app.get("/authors", async function(req, res){
- let sql = `SELECT *
+    let sql = `SELECT *
             FROM q_authors
             ORDER BY lastName`;
- const [rows] = await pool.query(sql);
- res.render("authorList", {"authors":rows});
+
+    try {
+        const [rows] = await pool.query(sql);
+        res.render("authorList", {"authors":rows});
+    } catch (err) {
+        console.error("Database error:", err);
+        console.error("SQL:", sql);
+        res.status(500).send("Database error");
+    }
 });
 
 // Retrieve existing author information
@@ -71,8 +86,14 @@ app.get("/author/edit", async function(req, res){
         DATE_FORMAT(dod, '%Y-%m-%d') dodISO
         FROM q_authors
         WHERE authorId =  ${authorId}`;
- const [rows] = await pool.query(sql);
- res.render("editAuthor", {"authorInfo":rows});
+
+    try {
+        const [rows] = await pool.query(sql);
+        res.render("editAuthor", {"authorInfo":rows});
+    } catch (err) {
+        console.error("Database error:", err);
+        res.status(500).send("Database error");
+    }
 });
 
 // Change existing author information
@@ -96,8 +117,13 @@ app.post("/author/edit", async function(req, res){
               req.body.portraitUrl, req.body.bio,
               req.body.authorId];  
 
-  const [rows] = await pool.query(sql,params);
-  res.redirect("/authors");
+    try {
+        const [rows] = await pool.query(sql,params);
+        res.redirect("/authors");
+    } catch (err) {
+        console.error("Database error:", err);
+        res.status(500).send("Database error");
+    }
 });
 
 // Deletes author
@@ -108,9 +134,14 @@ app.get("/author/delete", async function(req, res) {
                FROM q_authors
                WHERE authorId = ?`;
 
-    const [rows] = await pool.query(sql, [authorId]);
+    try {
+        const [rows] = await pool.query(sql, [authorId]);
+        res.redirect("/authors");
+    } catch (err) {
+        console.error("Database error:", err);
+        res.status(500).send("Database error");
+    }
 
-    res.redirect("/authors");
 });
 
 // Display form for inputting quote
@@ -129,20 +160,32 @@ app.post("/quote/new", async function(req, res){
              (quote, authorId, category, likes)
               VALUES (?, ?, ?, ?)`;
   let params = [quote, authorId, category, likes];
-  const [rows] = await pool.query(sql, params);
-  res.render("newQuote", 
-             {"message": "Quote added!"});
+
+  try {
+      const [rows] = await pool.query(sql, params);
+      res.render("newQuote", 
+                 {"message": "Quote added!"});
+  } catch (err) {
+        console.error("Database error:", err);
+        res.status(500).send("Database error");
+    }
 });
 
 // Retrieve list of quotes
 app.get("/quotes", async function(req, res){
- let sql = `SELECT *
+    let sql = `SELECT *
             FROM q_quotes
             ORDER BY quoteId`;
- const [rows] = await pool.query(sql);
- res.render("quoteList", {"quotes":rows});
+    try {
+        const [rows] = await pool.query(sql);
+        res.render("quoteList", {"quotes":rows});
+    } catch (err) {
+        console.error("Database error:", err);
+        console.error("SQL:", sql);
+        res.status(500).send("Database error");
+    }
 });
-
+        
 app.listen(3000, ()=>{
     console.log("Express server running")
 })
@@ -155,8 +198,14 @@ app.get("/quote/edit", async function(req, res){
  let sql = `SELECT * 
         FROM q_quotes
         WHERE quoteId = ${quoteId}`;
- const [rows] = await pool.query(sql);
- res.render("editQuote", {"quote":rows});
+
+    try {
+        const [rows] = await pool.query(sql);
+        res.render("editQuote", {"quote":rows});
+    } catch (err) {
+        console.error("Database error:", err);
+        res.status(500).send("Database error");
+    }
 });
 
 // Change existing author information
@@ -171,9 +220,14 @@ app.post("/quote/edit", async function(req, res){
   let params = [req.body.quote,  
               req.body.authorId, req.body.category,
               req.body.likes, req.body.quoteId];  
+    try {
+        const [rows] = await pool.query(sql,params);
+        res.redirect("/quotes");
+    } catch (err) {
+        console.error("Database error:", err);
+        res.status(500).send("Database error");
+    }
 
-  const [rows] = await pool.query(sql,params);
-  res.redirect("/quotes");
 });
 
 // Deletes quote
@@ -184,9 +238,13 @@ app.get("/quote/delete", async function(req, res) {
                FROM q_quotes
                WHERE quoteId = ?`;
 
-    const [rows] = await pool.query(sql, [quoteId]);
-
-    res.redirect("/quotes");
+    try {
+        const [rows] = await pool.query(sql, [quoteId]);
+        res.redirect("/quotes");
+    } catch (err) {
+        console.error("Database error:", err);
+        res.status(500).send("Database error");
+    }
 });
 
 app.get("/dbTest", async(req, res) => {
