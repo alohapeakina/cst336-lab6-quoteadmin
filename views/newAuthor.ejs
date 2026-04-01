@@ -15,10 +15,30 @@
       Last Name:
       <input type="text" name="lName"><br>
       Date of Birth:
-      <input type="date" name="birthDate">
-      <br>  
+      <input type="date" name="birthDate"><br>
+      Date of Death:
+      <input type="date" name="deathDate"><br>
+      Birth Place:
+      <input type="text" name="birthPlace"><br>
+      <label for="sexSelect">Sex:</label>
+      <select name="sexSelect" id="sexSelect">
+        <option value="">Choose an option</option>
+        <option value="M">M</option>
+        <option value="F">F</option>
+      </select><br>
+      Profession:
+      <input type="text" name="profession"><br>
+      Portrait URL:
+      <input type="url" name="portraitUrl"><br>
+      Bio:
+      <input type="text" name="biography"><br>
       <button>Add Author</button>
     </form>
+
+    <% if (typeof message != "undefined"){ %>
+  		 <h3><%=message%></h3>
+    <% } %>
+
 
     
 </body>

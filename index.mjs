@@ -36,10 +36,18 @@ app.post("/author/new", async function(req, res){
   let fName = req.body.fName;
   let lName = req.body.lName;
   let birthDate = req.body.birthDate;
+  let deathDate = req.body.deathDate;
+  let birthPlace = req.body.birthPlace;
+  let sex = req.body.sexSelect;
+  let profession = req.body.profession;
+  let portraitUrl = req.body.portraitUrl;
+  let biography = req.body.biography;
+
+
   let sql = `INSERT INTO q_authors
-             (firstName, lastName, dob)
-              VALUES (?, ?, ?)`;
-  let params = [fName, lName, birthDate];
+             (firstName, lastName, dob, dod, sex, profession, country, portrait, biography)
+              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+  let params = [fName, lName, birthDate, deathDate, sex, profession, birthPlace, portraitUrl, biography];
   const [rows] = await pool.query(sql, params);
   res.render("newAuthor", 
              {"message": "Author added!"});
