@@ -60,19 +60,44 @@ app.get("/authors", async function(req, res){
  res.render("authorList", {"authors":rows});
 });
 
-// Edit existing author information
+// Retrieve existing author information
 app.get("/author/edit", async function(req, res){
 
  let authorId = req.query.authorId;
 
  let sql = `SELECT *, 
-        DATE_FORMAT(dob, '%Y-%m-%d') dobISO
+        DATE_FORMAT(dob, '%Y-%m-%d') dobISO,
+        DATE_FORMAT(dod, '%Y-%m-%d') dodISO
         FROM q_authors
         WHERE authorId =  ${authorId}`;
  const [rows] = await pool.query(sql);
  res.render("editAuthor", {"authorInfo":rows});
 });
 
+// Change existing author information
+app.post("/author/edit", async function(req, res){
+  let sql = `UPDATE q_authors
+            SET firstName = ?,
+                lastName = ?,
+                dob = ?,
+                dod = ?,
+                sex = ?,
+                profession = ?,
+                country = ?,
+                portrait = ?,
+                biography = ?
+            WHERE authorId =  ?`;
+
+  let params = [req.body.fName,  
+              req.body.lName, req.body.dob,
+              req.body.dod, req.body.sex,
+              req.body.profession, req.body.birthPlace,
+              req.body.portraitUrl, req.body.bio,
+              req.body.authorId];  
+
+  const [rows] = await pool.query(sql,params);
+  res.redirect("/authors");
+});
 
 
 app.get("/dbTest", async(req, res) => {
