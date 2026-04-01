@@ -113,14 +113,25 @@ app.get("/author/delete", async function(req, res) {
     res.redirect("/authors");
 });
 
-app.get("/dbTest", async(req, res) => {
-   try {
-        const [rows] = await pool.query("SELECT CURDATE()");
-        res.send(rows);
-    } catch (err) {
-        console.error("Database error:", err);
-        res.status(500).send("Database error");
-    }
+// Display form for inputting quote
+app.get("/quote/new", (req, res) => {
+    res.render("newQuote");
+});
+
+// Inserts new quote into the database
+app.post("/quote/new", async function(req, res){
+  let quote = req.body.quote;
+  let authorId = req.body.author;
+  let category = req.body.category;
+  let likes = req.body.likes;
+
+  let sql = `INSERT INTO q_quotes
+             (quote, authorId, category, likes)
+              VALUES (?, ?, ?, ?)`;
+  let params = [quote, authorId, category, likes];
+  const [rows] = await pool.query(sql, params);
+  res.render("newQuote", 
+             {"message": "Quote added!"});
 });
 
 // Retrieve list of quotes
@@ -135,3 +146,22 @@ app.get("/quotes", async function(req, res){
 app.listen(3000, ()=>{
     console.log("Express server running")
 })
+
+// Retrieve existing quote information
+// TODO
+
+// Change existing author information
+// TODO
+
+// Deletes quote
+// TODO
+
+app.get("/dbTest", async(req, res) => {
+   try {
+        const [rows] = await pool.query("SELECT CURDATE()");
+        res.send(rows);
+    } catch (err) {
+        console.error("Database error:", err);
+        res.status(500).send("Database error");
+    }
+});

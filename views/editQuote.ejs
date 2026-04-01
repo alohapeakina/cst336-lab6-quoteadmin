@@ -1,0 +1,31 @@
+<%- include("partials/header.ejs") %>
+<body>
+    <h1>Updating Author Data</h1>
+
+    <form method="POST" action="/quote/edit">
+
+    <input type="hidden" name="quoteId" value="<%=quote[0].quoteId%>">
+
+    Quote:
+    <textarea name="quote"><%=quote[0].quote%></textarea>
+    <br>
+
+    Author ID:
+    <input type="number" name="author" value="<%=quote[0].authorId%>">
+    <br>
+
+    Category:
+    <input type="text" name="category" value="<%=quote[0].category%>">
+    <br>
+
+    Likes:
+    <input type="number" name="likes" value="<%=quote[0].likes%>">
+    <br>
+
+    <button>Update Quote</button>
+
+    </form>   
+
+    <%- include("partials/footer.ejs") %>
+</body>
+</html>
