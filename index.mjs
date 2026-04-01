@@ -43,7 +43,6 @@ app.post("/author/new", async function(req, res){
   let portraitUrl = req.body.portraitUrl;
   let biography = req.body.biography;
 
-
   let sql = `INSERT INTO q_authors
              (firstName, lastName, dob, dod, sex, profession, country, portrait, biography)
               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
@@ -51,6 +50,27 @@ app.post("/author/new", async function(req, res){
   const [rows] = await pool.query(sql, params);
   res.render("newAuthor", 
              {"message": "Author added!"});
+});
+
+app.get("/authors", async function(req, res){
+ let sql = `SELECT *
+            FROM q_authors
+            ORDER BY lastName`;
+ const [rows] = await pool.query(sql);
+ res.render("authorList", {"authors":rows});
+});
+
+// Edit existing author information
+app.get("/author/edit", async function(req, res){
+
+ let authorId = req.query.authorId;
+
+ let sql = `SELECT *, 
+        DATE_FORMAT(dob, '%Y-%m-%d') dobISO
+        FROM q_authors
+        WHERE authorId =  ${authorId}`;
+ const [rows] = await pool.query(sql);
+ res.render("editAuthor", {"authorInfo":rows});
 });
 
 
