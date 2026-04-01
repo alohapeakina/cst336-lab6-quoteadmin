@@ -1,25 +1,28 @@
 <%- include("partials/header.ejs") %>
 <body>
-    <h1> Famous Quotes - Admin Section </h1>
+    <div class="container mt-5">
+        <h1 class="text-center mb-5 display-4"> Famous Quotes - Admin Section </h1>
+        <div class="header-underline"></div>
+
+        <div class="row justify-content-center g-4">
+            <div class="col-6 col-md-3">
+                <a href="/author/new" class="btn btn-admin w-100">Add Authors</a>
+            </div>
+            
+            <div class="col-6 col-md-3">
+                <a href="/quote/new" class="btn btn-admin w-100">Add Quotes</a>
+            </div>
+
+            <div class="col-6 col-md-3">
+                <a href="/authors" class="btn btn-admin w-100">List Authors</a>
+            </div>
 
 
-   <form action="/author/new">
-     <button>Add Authors</button>
-   </form><br>
-
-
-   <form action="/quote/new">
-     <button>Add Quotes</button>
-   </form><br>
-
-
-   <form action="/authors">
-     <button>List Authors</button>
-   </form><br>
- 
-   <form action="/quotes">
-     <button>List Quotes</button>
-   </form>
+            <div class="col-6 col-md-3">
+                <a href="/quotes" class="btn btn-admin w-100">List Quotes</a>
+            </div>
+        </div>
+   </div>
     <%- include("partials/footer.ejs") %>
 </body>
 </html>
