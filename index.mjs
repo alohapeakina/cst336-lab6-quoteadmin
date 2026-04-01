@@ -141,7 +141,6 @@ app.get("/author/delete", async function(req, res) {
         console.error("Database error:", err);
         res.status(500).send("Database error");
     }
-
 });
 
 // Display form for inputting quote
@@ -247,28 +246,12 @@ app.get("/quote/delete", async function(req, res) {
     }
 });
 
-// app.get("/dbTest", async(req, res) => {
-//    try {
-//         const [rows] = await pool.query("SELECT CURDATE()");
-//         res.send(rows);
-//     } catch (err) {
-//         console.error("Database error:", err);
-//         res.status(500).send("Database error");
-//     }
-// });
-
-app.get("/dbTest", async (req, res) => {
-    try {
-        // Check if the pool is connected
-        const connection = await pool.getConnection();
-        console.log("Database connection successful!");
-        connection.release(); 
-
-        // Now perform the query
+app.get("/dbTest", async(req, res) => {
+   try {
         const [rows] = await pool.query("SELECT CURDATE()");
-        res.send(`Database connection is working fine. Today's date: ${rows[0]["CURDATE()"]}`);
+        res.send(`Database connection is working. Today's date: ${rows[0]["CURDATE()"]}`);
     } catch (err) {
-        console.error("Database connection error:", err);
+        console.error("Database error:", err);
         res.status(500).send("Database error");
     }
 });
