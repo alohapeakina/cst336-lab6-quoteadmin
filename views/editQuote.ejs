@@ -4,25 +4,25 @@
 
     <form method="POST" action="/quote/edit">
 
-    <input type="hidden" name="quoteId" value="<%=quote[0].quoteId%>">
+        <input type="hidden" name="quoteId" value="<%=quote[0].quoteId%>">
 
-    Quote:
-    <textarea name="quote"><%=quote[0].quote%></textarea>
-    <br>
+        Quote:
+        <textarea name="quote"><%=quote[0].quote%></textarea>
+        <br>
 
-    Author ID:
-    <input type="number" name="author" value="<%=quote[0].authorId%>">
-    <br>
+        Author ID:
+        <input type="number" name="authorId" value="<%=quote[0].authorId%>">
+        <br>
 
-    Category:
-    <input type="text" name="category" value="<%=quote[0].category%>">
-    <br>
+        Category:
+        <input type="text" name="category" value="<%=quote[0].category%>">
+        <br>
 
-    Likes:
-    <input type="number" name="likes" value="<%=quote[0].likes%>">
-    <br>
+        Likes:
+        <input type="number" name="likes" value="<%=quote[0].likes%>">
+        <br>
 
-    <button>Update Quote</button>
+        <button>Update Quote</button>
 
     </form>   
 

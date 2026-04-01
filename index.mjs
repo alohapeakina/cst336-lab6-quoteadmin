@@ -148,13 +148,46 @@ app.listen(3000, ()=>{
 })
 
 // Retrieve existing quote information
-// TODO
+app.get("/quote/edit", async function(req, res){
+
+ let quoteId = req.query.quoteId;
+
+ let sql = `SELECT * 
+        FROM q_quotes
+        WHERE quoteId = ${quoteId}`;
+ const [rows] = await pool.query(sql);
+ res.render("editQuote", {"quote":rows});
+});
 
 // Change existing author information
-// TODO
+app.post("/quote/edit", async function(req, res){
+  let sql = `UPDATE q_quotes
+            SET quote = ?,
+                authorId = ?,
+                category = ?,
+                likes = ?
+            WHERE quoteId =  ?`;
+
+  let params = [req.body.quote,  
+              req.body.authorId, req.body.category,
+              req.body.likes, req.body.quoteId];  
+
+  const [rows] = await pool.query(sql,params);
+  res.redirect("/quotes");
+});
 
 // Deletes quote
-// TODO
+app.get("/quote/delete", async function(req, res) {
+    let quoteId = req.query.quoteId;
+
+    let sql = `DELETE
+               FROM q_quotes
+               WHERE quoteId = ?`;
+
+    const [rows] = await pool.query(sql, [quoteId]);
+
+    res.redirect("/quotes");
+});
 
 app.get("/dbTest", async(req, res) => {
    try {
