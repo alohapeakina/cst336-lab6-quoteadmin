@@ -1,38 +1,83 @@
 <%- include("partials/header.ejs") %>
 <body>
 
-    <h1>Adding a new Author</h1>
+    <div class="container mt-5 mb-5">
+        <div class="row justify-content-center">
 
-    <form method="POST" action="/author/new">
-      First Name:
-      <input type="text" name="fName"><br>
-      Last Name:
-      <input type="text" name="lName"><br>
-      Date of Birth:
-      <input type="date" name="birthDate"><br>
-      Date of Death:
-      <input type="date" name="deathDate"><br>
-      Birth Place:
-      <input type="text" name="birthPlace"><br>
-      <label for="sexSelect">Sex:</label>
-      <select name="sexSelect" id="sexSelect">
-        <option value="">Choose an option</option>
-        <option value="M">M</option>
-        <option value="F">F</option>
-      </select><br>
-      Profession:
-      <input type="text" name="profession"><br>
-      Portrait URL:
-      <input type="url" name="portraitUrl"><br>
-      Bio:
-      <textarea name="biography" rows="4" cols="50"></textarea><br>
-      <button>Add Author</button>
-    </form>
+            <div class="col-12 col-lg-10">
+                <div class="card shadow-sm border-0">
+                    <div class="card-body p-4 p-md-5">
+                        <h1 class="text-center mb-4">Adding a new Author</h1>
+                        <hr class="mb-4">
+                        <form method="POST" action="/author/new">
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">First Name</label>
+                                <input type="text" name="fName" class="form-control" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Last Name</label>
+                                <input type="text" name="lName" class="form-control" required>
+                            </div>
+                        </div>
 
-    <% if (typeof message != "undefined"){ %>
-  		 <h3><%=message%></h3>
-    <% } %>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Date of Birth</label>
+                                <input type="date" name="birthDate" class="form-control">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Date of Death</label>
+                                <input type="date" name="deathDate" class="form-control">
+                            </div>   
+                        </div>
 
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Sex</label>
+                                <select name="sexSelect" class="form-select">
+                                    <option value="" selected disabled>Choose an Option</option>
+                                    <option value="M">Male</option>
+                                    <option value="F">Female</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Profession</label>
+                                <input type="text" name="profession" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <label class="form-label fw-bold">Portrait URL</label>
+                                <input type="url" name="portraitUrl" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <label class="form-label fw-bold">Bio</label>
+                                <textarea name="biography" class="form-control" rows="4"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg">Add Author</button>
+                        </div>
+                    </form>
+
+                    <% if (typeof message != "undefined"){ %>
+                        <div class="alert alert-info mt-4 text-center"><%=message%></div>
+                    <% } %>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
 
     <%- include("partials/footer.ejs") %>
 </body>

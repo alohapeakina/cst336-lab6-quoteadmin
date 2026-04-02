@@ -1,21 +1,23 @@
 <%- include("partials/header.ejs") %>
 <body>
 
-    <h1> Update/Delete Quotes </h1>
+    <div class="container mt-5">
+        <h1 class="text-center mb-5"> Update/Delete Quotes </h1>
 
+        <% for (i=0; i < quotes.length; i++) { %>
 
-    <% for (i=0; i < quotes.length; i++) { %>
-
-
-    <a href="/quote/edit?quoteId=<%=quotes[i].quoteId%>">UPDATE</a>
-
-
-    <a href="/quote/delete?quoteId=<%=quotes[i].quoteId%>">DELETE</a>
-
-
-    <%=quotes[i].quote%> <br>
-
-    <% } %>
+        <div class="row align-items-center mb-4 border-bottom">
+            <div class="col-4 d-flex justify-content-end gap-2">
+                <a href="/quote/edit?quoteId=<%=quotes[i].quoteId%>" class="btn btn-primary btn-compact w-100">UPDATE</a>
+        
+                <a href="/quote/delete?quoteId=<%=quotes[i].quoteId%>" class="btn btn-danger btn-compact w-100">DELETE</a>
+            </div>
+            <div class="col-8">
+                <em><%=quotes[i].quote%></em>
+            </div>
+        </div>
+        <% } %>
+    </div>
     
     <%- include("partials/footer.ejs") %>
 </body>

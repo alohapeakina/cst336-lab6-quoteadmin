@@ -37,6 +37,9 @@ h1.display-4 {
 }
 
 .btn-admin {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: #ffffff;
     color: #0d6efd;
     border: 2px solid #0d6efd;
@@ -44,9 +47,6 @@ h1.display-4 {
     font-weight: 600;
     border-radius: 12px;
     text-decoration: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     transition: all 0.3s ease;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
@@ -60,4 +60,13 @@ h1.display-4 {
 .row {
     max-width: 900px;
     margin: 0 auto;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.15);
+}
+
+.card {
+    border-radius: 15px;
 }
