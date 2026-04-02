@@ -114,7 +114,7 @@ app.post("/author/edit", async function(req, res){
               req.body.lName, req.body.dob,
               req.body.dod, req.body.sex,
               req.body.profession, req.body.birthPlace,
-              req.body.portraitUrl, req.body.bio,
+              req.body.portraitUrl, req.body.biography,
               req.body.authorId];  
 
     try {
