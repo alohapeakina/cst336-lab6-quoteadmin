@@ -22,8 +22,18 @@
                             
                             <div class="row mb-4">
                                 <div class="col-md-4">
-                                    <label class="form-label fw-bold">Author ID</label>
-                                    <input type="number" name="author" class="form-control" value="<%=quote[0].authorId%>">
+                                    <label class="form-label fw-bold">Author</label>
+                                    <!-- <input type="number" name="author" class="form-control" value="<%=quote[0].authorId%>"> -->
+                                    <select name="author" class="form-select" required>
+                                        <% for (let author of authors) { %>
+                                            <option value="<%= author.authorId %>"
+                                                <% if (author.authorId == quote[0].authorId) { %>
+                                                    selected 
+                                                <% } %>>
+                                            <%= author.firstName %> <%= author.lastName %>
+                                            </option>
+                                        <% } %>
+                                    </select>
                                 </div>
                                 <div class="col-md-4">
                                     <label class="form-label fw-bold">Category</label>

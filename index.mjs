@@ -144,8 +144,17 @@ app.get("/author/delete", async function(req, res) {
 });
 
 // Display form for inputting quote
-app.get("/quote/new", (req, res) => {
-    res.render("newQuote");
+app.get("/quote/new", async (req, res) => {
+    let sql = `SELECT authorId, firstName, lastName
+                FROM q_authors
+                ORDER BY lastName`;
+    try {
+        const [rows] = await pool.query(sql);
+        res.render("newQuote", {"authors":rows});
+    } catch (err) {
+        console.error("Database error:", err);
+        res.status(500).send("Database error");
+    }
 });
 
 // Inserts new quote into the database
@@ -161,9 +170,17 @@ app.post("/quote/new", async function(req, res){
   let params = [quote, authorId, category, likes];
 
   try {
-      const [rows] = await pool.query(sql, params);
+        // Inserts, then gathers list of authors since the add quote
+        // route now populates a dropdown of authors from the database
+        await pool.query(sql, params);
+        let sqlAuthors = `SELECT authorId, firstName, lastName
+                          FROM q_authors
+                          ORDER BY lastName`;
+
+      const [rows] = await pool.query(sqlAuthors);
       res.render("newQuote", 
-                 {"message": "Quote added!"});
+                 {"message": "Quote added!",
+                  "authors": rows});
   } catch (err) {
         console.error("Database error:", err);
         res.status(500).send("Database error");
@@ -194,13 +211,23 @@ app.get("/quote/edit", async function(req, res){
 
  let quoteId = req.query.quoteId;
 
- let sql = `SELECT * 
+ let sqlQuote = `SELECT * 
         FROM q_quotes
-        WHERE quoteId = ${quoteId}`;
+        WHERE quoteId = ?`;
+ let quoteParams = [quoteId];
+
+let sqlAuthor = `SELECT authorId, firstName, lastName
+                FROM q_authors
+                ORDER BY lastName`;
 
     try {
-        const [rows] = await pool.query(sql);
-        res.render("editQuote", {"quote":rows});
+        const [quoteRows] = await pool.query(sqlQuote, [quoteParams]);
+        const [authorRows] = await pool.query(sqlAuthor);
+
+        res.render("editQuote", {
+                   "quote":quoteRows,
+                   "authors":authorRows});
+
     } catch (err) {
         console.error("Database error:", err);
         res.status(500).send("Database error");

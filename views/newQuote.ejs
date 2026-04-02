@@ -19,8 +19,15 @@
                             
                             <div class="row mb-4">
                                 <div class="col-md-4">
-                                    <label class="form-label fw-bold">Author ID</label>
-                                    <input type="number" name="author" class="form-control" required>
+                                    <label class="form-label fw-bold">Author</label>
+                                    <select name="author" class="form-select" required>
+                                        <option value="" selected disabled>Select Author</option>
+                                        <% for (let author of authors) { %>
+                                            <option value="<%= author.authorId %>">
+                                                <%= author.firstName %> <%= author.lastName %>
+                                            </option>
+                                        <% } %>
+                                    </select>
                                 </div>
                                 <div class="col-md-4">
                                     <label class="form-label fw-bold">Category</label>
