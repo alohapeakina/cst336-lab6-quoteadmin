@@ -207,8 +207,9 @@ app.get("/quote/edit", async function(req, res){
     }
 });
 
-// Change existing author information
+// Change existing quote information
 app.post("/quote/edit", async function(req, res){
+    console.log("Form data received:", req.body);
   let sql = `UPDATE q_quotes
             SET quote = ?,
                 authorId = ?,
@@ -217,7 +218,7 @@ app.post("/quote/edit", async function(req, res){
             WHERE quoteId =  ?`;
 
   let params = [req.body.quote,  
-              req.body.authorId, req.body.category,
+              req.body.author, req.body.category,
               req.body.likes, req.body.quoteId];  
     try {
         const [rows] = await pool.query(sql,params);
