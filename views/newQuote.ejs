@@ -1,24 +1,50 @@
 <%- include("partials/header.ejs") %>
 <body>
+    <div class="container mt-5 mb-5">
+        <div class="row justify-content-center">
 
-    <h1>Adding a new Quote</h1>
+            <div class="col-12 col-lg-10">
+                <div class="card shadow-sm border-0">
+                    <div class="card-body p-4 p-md-5">
 
-    <form method="POST" action="/quote/new">
-      Quote:
-      <textarea name="quote" rows="4" cols="50"></textarea><br>
-      Author ID:
-      <input type="number" name="author"><br>
-      Category:
-      <input type="text" name="category"><br>
-      Likes:
-      <input type="number" name="likes"><br>
-      <button>Add Quote</button>
-    </form>
+                        <h1 class="text-center mb-4">Adding a New Quote</h1>
+                        <hr class="mb-4">
+                        <form method="POST" action="/quote/new">
+                            <div class="row mb-4">
+                                <div class="col-12">
+                                    <label class="form-label fw-bold text-primary">Quote</label>
+                                    <textarea name="quote" class="form-control" rows="5"></textarea>
+                                </div>
+                            </div>
+                            
+                            <div class="row mb-4">
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold">Author ID</label>
+                                    <input type="number" name="author" class="form-control" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold">Category</label>
+                                    <input type="text" name="category" class="form-control" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold">Likes</label>
+                                    <input type="number" name="likes" class="form-control" required>
+                                </div>
+                            </div>
 
-    <% if (typeof message != "undefined"){ %>
-  		 <h3><%=message%></h3>
-    <% } %>
+                            <div class="d-grid mt-2">
+                                    <button type="submit" class="btn btn-primary btn-lg">Add Quote</button>
+                            </div>
+                        </form>
 
+                        <% if (typeof message != "undefined"){ %>
+                        <h3><%=message%></h3>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <%- include("partials/footer.ejs") %>
 </body>
