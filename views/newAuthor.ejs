@@ -11,66 +11,75 @@
                         <hr class="mb-4">
                         <form method="POST" action="/author/new">
                         
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <label class="form-label fw-bold">First Name</label>
-                                <input type="text" name="fName" class="form-control" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label fw-bold">Last Name</label>
-                                <input type="text" name="lName" class="form-control" required>
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <label class="form-label fw-bold">Date of Birth</label>
-                                <input type="date" name="birthDate" class="form-control">
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label fw-bold">Date of Death</label>
-                                <input type="date" name="deathDate" class="form-control">
-                            </div>   
-                        </div>
-
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <label class="form-label fw-bold">Sex</label>
-                                <select name="sexSelect" class="form-select">
-                                    <option value="" selected disabled>Choose an Option</option>
-                                    <option value="M">Male</option>
-                                    <option value="F">Female</option>
-                                </select>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">First Name</label>
+                                    <input type="text" name="fName" class="form-control" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">Last Name</label>
+                                    <input type="text" name="lName" class="form-control" required>
+                                </div>
                             </div>
 
-                            <div class="col-md-6">
-                                <label class="form-label fw-bold">Profession</label>
-                                <input type="text" name="profession" class="form-control">
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">Date of Birth</label>
+                                    <input type="date" name="birthDate" class="form-control">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">Date of Death</label>
+                                    <input type="date" name="deathDate" class="form-control">
+                                </div>   
                             </div>
-                        </div>
 
-                        <div class="row mb-3">
-                            <div class="col-12">
-                                <label class="form-label fw-bold">Portrait URL</label>
-                                <input type="url" name="portraitUrl" class="form-control">
+                            <div class="row mb-3">
+                                <div class="col-md-3">
+                                    <label class="form-label fw-bold d-block">Sex</label>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="sex" id="sexM" value="M">
+                                        <label class="form-check-label" for="sexM">Male</label>
+                                    </div>
+
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="sex" id="sexF" value="F">
+                                        <label class="form-check-label" for="sexF">Female</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-5">
+                                    <label class="form-label fw-bold">Birth Place</label>
+                                    <input type="text" name="birthPlace" class="form-control">
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold">Profession</label>
+                                    <input type="text" name="profession" class="form-control">
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="row mb-4">
-                            <div class="col-12">
-                                <label class="form-label fw-bold">Bio</label>
-                                <textarea name="biography" class="form-control" rows="4"></textarea>
+                            <div class="row mb-3">
+                                <div class="col-12">
+                                    <label class="form-label fw-bold">Portrait URL</label>
+                                    <input type="url" name="portraitUrl" class="form-control">
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="d-grid">
-                            <button type="submit" class="btn btn-primary btn-lg">Add Author</button>
-                        </div>
-                    </form>
+                            <div class="row mb-4">
+                                <div class="col-12">
+                                    <label class="form-label fw-bold">Bio</label>
+                                    <textarea name="biography" class="form-control" rows="4"></textarea>
+                                </div>
+                            </div>
 
-                    <% if (typeof message != "undefined"){ %>
-                        <div class="alert alert-success mt-4 text-center"><%=message%></div>
-                    <% } %>
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary btn-lg">Add Author</button>
+                            </div>
+                        </form>
+
+                        <% if (typeof message != "undefined"){ %>
+                            <div class="alert alert-success mt-4 text-center"><%=message%></div>
+                        <% } %>
 
                     </div>
                 </div>

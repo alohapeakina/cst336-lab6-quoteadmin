@@ -38,7 +38,7 @@ app.post("/author/new", async function(req, res){
   let birthDate = req.body.birthDate;
   let deathDate = req.body.deathDate;
   let birthPlace = req.body.birthPlace;
-  let sex = req.body.sexSelect;
+  let sex = req.body.sex;
   let profession = req.body.profession;
   let portraitUrl = req.body.portraitUrl;
   let biography = req.body.biography;
