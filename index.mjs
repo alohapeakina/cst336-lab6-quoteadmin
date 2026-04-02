@@ -4,6 +4,7 @@ import mysql from 'mysql2/promise';
 
 dotenv.config();
 const app = express();
+const PORT = process.env.PORT || 3000;
 
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
@@ -202,8 +203,8 @@ app.get("/quotes", async function(req, res){
     }
 });
         
-app.listen(3000, ()=>{
-    console.log("Express server running")
+app.listen(PORT, () => {
+    console.log(`Express server running on port ${PORT}`);
 })
 
 // Retrieve existing quote information
@@ -221,7 +222,7 @@ let sqlAuthor = `SELECT authorId, firstName, lastName
                 ORDER BY lastName`;
 
     try {
-        const [quoteRows] = await pool.query(sqlQuote, [quoteParams]);
+        const [quoteRows] = await pool.query(sqlQuote, quoteParams);
         const [authorRows] = await pool.query(sqlAuthor);
 
         res.render("editQuote", {
